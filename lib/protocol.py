@@ -294,7 +294,7 @@ class ProtocolSweep:
         if type_axis == "log":
             rates = np.geomspace(rmin, rmax, number_of_rate_points)
         elif type_axis == "lin":
-            rates = np.linspace(rmin, rmax, number_of_rate_points)
+            rates = np.linspace(rmin, rmax, num=number_of_rate_points)
         else:
             raise ValueError("type_axis should be lin or log")
 
