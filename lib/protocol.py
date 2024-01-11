@@ -246,8 +246,8 @@ class ProtocolSweep:
         for parameter in self.sweep_parameters:
             parameters.pop(parameter)
         data_vars.update(self.sweep_parameters)
-        self.dataset = xr.Dataset(data_vars, attrs=parameters)
-        if False:
+        self.dataset = xr.Dataset(data_vars, coords=self.sweep_parameters, attrs=parameters)
+        if self.save_results:
             self.save_dataset()
 
     def save_dataset(self):
