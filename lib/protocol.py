@@ -228,7 +228,7 @@ class ProtocolSweep:
         parameter_values_iter = itertools.product(*[list(array) for array in parameter_lists])
 
         time_start = time.time()
-        with multi.Pool() as processing_pool:
+        with multi.Pool(processes=multi.cpu_count()) as processing_pool:
             results = processing_pool.starmap(wrap, parameter_values_iter)
         time_sim = time.time() - time_start
         print(f"Sweep time with multi was {time_sim:.3f} s")
@@ -245,8 +245,9 @@ class ProtocolSweep:
         parameters = copy(self.parameters)
         for parameter in self.sweep_parameters:
             parameters.pop(parameter)
-        self.dataset = xr.Dataset(data_vars, self.sweep_parameters, attrs=parameters)
-        if self.save_results:
+        data_vars.update(self.sweep_parameters)
+        self.dataset = xr.Dataset(data_vars, attrs=parameters)
+        if False:
             self.save_dataset()
 
     def save_dataset(self):
