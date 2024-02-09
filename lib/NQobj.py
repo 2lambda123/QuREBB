@@ -296,9 +296,9 @@ class NQobj(qt.Qobj):
 
     def ptrace(self, sel, keep=True):
         if self.dims[0] != self.dims[1]:
-            ValueError("ptrace works only on a square oper")
+            raise ValueError("ptrace works only on a square oper")
         if self.names[0] != self.names[1]:
-            ValueError("Names of both axis are not the same")
+            raise ValueError("Names of both axis are not the same")
 
         if isinstance(sel, list):
             if all(isinstance(i, int) for i in sel):
