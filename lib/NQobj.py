@@ -295,6 +295,8 @@ class NQobj(qt.Qobj):
         return NQobj(super().unit(*args, **kwargs), names=self.names, kind=self.kind)
 
     def ptrace(self, sel, keep=True):
+        """"""
+        
         if self.dims[0] != self.dims[1]:
             raise ValueError("ptrace works only on a square oper")
         if self.names[0] != self.names[1]:
@@ -320,6 +322,8 @@ class NQobj(qt.Qobj):
         return NQobj(super().ptrace(sel), names=[names, names], kind=self.kind)
 
     def permute(self, order):
+        """"""
+        
         if isinstance(order, list) and all(isinstance(i, str) for i in order):
             order_index = []
             if self.names[0] == self.names[1]:
@@ -383,6 +387,8 @@ class NQobj(qt.Qobj):
         return (dim_0, dim_1)
 
     def expm(self):
+        """"""
+        
         if self.names[0] == self.names[1] and self.dims[0] == self.dims[1]:
             return NQobj(super().expm(), names=self.names, kind=self.kind)
         else:
@@ -476,14 +482,20 @@ def tensor(*args):
 
 
 def ket2dm(Q):
+    """"""
+    
     return NQobj(qt.ket2dm(Q), names=Q.names, kind="state")
 
 
 def name(Q, names, kind=None):
+    """"""
+    
     return NQobj(Q, names=names, kind=kind)
 
 
 def fidelity(A, B):
+    """"""
+    
     if not ((A.isket or A.isbra or A.isoper) and (B.isket or B.isbra or B.isoper)):
         raise TypeError("fidelity can only be calculated for ket, bra or oper.")
     if not set(A.names[0]) == set(A.names[1]) or not set(B.names[0]) == set(B.names[1]):
